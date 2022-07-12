@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/movie-app/assets/favicon.17e50649.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <title>MOVIE App</title>
+  <script type="module" crossorigin src="/movie-app/assets/index.61456c1c.js"></script>
+  <link rel="stylesheet" href="/movie-app/assets/index.bb739f50.css">
+</head>
+
+<body>
+  <div x-data="isOpen" class="movieapp">
+    <h1>Favourite movies App list</h1>
+    <div class="message" x-bind:class="error ? 'error' : ''" x-text="info_message" x-show="info_message !=''"
+      x-transition x-cloak></div>
+    <div class="main">
+        <div class="register" x-show="register">
+
+        <label><strong>firstname: </strong> <input type="text" x-model="firstname"> </label>
+        <br>
+        <label><strong>lastname: </strong> <input type="text" x-model="lastname"> </label>
+        <br>
+        <label><strong>Username: </strong> <input type="text" x-model="username"> </label>
+        <br>
+        <label><strong> password: </strong> <input type="password" x-model="password"></label>
+        <button type="submit" @click="registerUser()">signup</button>
+         </div>
+      
+
+      <div class="login" x-show="login">
+
+        <label><strong> Username: </strong> <input type="text" x-model="userName"> </label>
+        <br>
+        <label><strong> password: </strong> <input type="password" x-model="Password"></label>
+        <button type="submit" @click="loadData()">login</button>
+      </div>
+        <h4 @click="hideRegister()" class="btn btn-link"> login here</h4>
+        <h4 @click="hideLogin()" class="btn btn-link">no account? register here</h4>
+      
+    </div>
+    <div x-show="thismovies">
+      <button @click="logout()">Logout</button>
+ <strong x-text="firstname"></strong>
+        <strong x-text="lastname"></strong>
+      <div class="showMovies">
+       
+        <div class="search"><label>search for a movie <input type="search" x-model="moviename"
+              placeholder="search here"></label>
+          <button @click="searchMovie()">search movie</button>
+        </div>
+
+        <div class="movies">
+          <template x-for="movie in movies">
+            <div class="movie">
+              <span x-text="movie.title"></span>
+              <img x-bind:src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" />
+              <span x-text="movie.overview"></span>
+              <span x-text="movie.original_title"></span>
+              <span x-text="movie.release_date"></span>
+              <button @click="addToPlaylist(movie)">Add to playlist</button>
+              
+              
+            </div>
+          </template>
+        
+          
+          
+
+          
+        </div>
+      </div>
+      <div class="displayMovies">
+        <button @click="UserPlaylist()">Display Playlist</button>
+        
+        <div class="userPlaylist">
+            <template x-for="favorateMovie in playlist">
+                <div class="movies">
+                  <span x-text="favorateMovie.title"></span>
+                    <span x-text="favorateMovie.overview"></span>
+                    <img x-bind:src="`https://image.tmdb.org/t/p/w500${favorateMovie.poster_path}`" />
+            
+                </div>
+            </template>
+        </div>
+        <h5>Movies in Playlist <span x-text="playlist.length"></span></h5>
+    </div>
+
+    </div>
+    
+  </div>
+</body>
+
+</html>
